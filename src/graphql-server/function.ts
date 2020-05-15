@@ -15,7 +15,7 @@
 //   return callback(null, { status, headers, body });
 // };
 
-import { ApolloServer, gql } from 'apollo-server-lambda';
+import { ApolloServer, gql } from 'apollo-server-lambda-edge';
 
 const typeDefs = gql`
   type Query {
@@ -47,7 +47,7 @@ const server = new ApolloServer({
   },
 });
 
-console.log('server instantiated', { server });
+console.log('GraphQL Server:', { server });
 
 exports.handler = server.createHandler({
   cors: {

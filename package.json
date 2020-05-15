@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "@aws-cdk/assert": "1.38.0",
+    "@types/bunyan": "^1.8.6",
     "@types/jest": "^25.2.1",
     "@types/node": "10.17.5",
     "aws-cdk": "1.38.0",
@@ -30,6 +31,7 @@
     "@aws-cdk/aws-s3": "^1.38.0",
     "@aws-cdk/core": "1.38.0",
     "apollo-server-lambda": "^2.13.1",
+    "apollo-server-lambda-edge": "^1.0.3",
     "graphql": "^15.0.0",
     "graphql-playground-middleware-lambda": "^1.7.15",
     "sha256-file": "^1.0.0",

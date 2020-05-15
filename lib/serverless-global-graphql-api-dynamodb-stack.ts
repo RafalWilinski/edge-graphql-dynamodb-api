@@ -30,8 +30,8 @@ export class ServerlessGlobalGraphqlApiDynamodbStack extends cdk.Stack {
     const graphql = new NodejsFunction(this, 'yourlambda', {
       entry: './src/graphql-server/function.ts',
       handler: 'handler',
-      memorySize: 1024,
-      timeout: Duration.millis(10000),
+      memorySize: 128, // Max
+      timeout: Duration.millis(5000), // Max
       role: new Role(this, 'AllowLambdaServiceToAssumeRole', {
         assumedBy: new CompositePrincipal(
           new ServicePrincipal('lambda.amazonaws.com'),

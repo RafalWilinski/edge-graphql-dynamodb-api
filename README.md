@@ -1,10 +1,10 @@
 ![Solution Diagram](./assets/overview.png)
 
-# Welcome to your CDK TypeScript project!
+# Serverless GraphQL @ Edge + Global DynamoDB Tables
 
-This is a blank project for TypeScript development with CDK.
-
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+- GraphQL computed @ Edge (Cloudfront + Lambda@Edge)
+- Globally replicated DynamoDB Tables
+- GraphQL handlers routing to the closest DynamoDB table as persistence layer
 
 ## Useful commands
 
@@ -14,3 +14,7 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
  * `cdk deploy`      deploy this stack to your default AWS account/region
  * `cdk diff`        compare deployed stack with current state
  * `cdk synth`       emits the synthesized CloudFormation template
+
+## Limitations
+
+- Lambda@Edge is restricted to 128MB of memory and 5000ms of timeout for VIEWER_REQUEST integration type. Your server must be rather lightweight
