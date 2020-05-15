@@ -4,4 +4,8 @@ import * as cdk from '@aws-cdk/core';
 import { ServerlessGlobalGraphqlApiDynamodbStack } from '../lib/serverless-global-graphql-api-dynamodb-stack';
 
 const app = new cdk.App();
-new ServerlessGlobalGraphqlApiDynamodbStack(app, 'ServerlessGlobalGraphqlApiDynamodbStack');
+new ServerlessGlobalGraphqlApiDynamodbStack(app, 'ServerlessGlobalGraphqlApiDynamodbStack', {
+  env: {
+    region: 'us-east-1',
+  },
+});
