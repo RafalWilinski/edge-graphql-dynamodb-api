@@ -13,6 +13,8 @@
 //   return callback(null, { status, headers, body });
 // };
 
+process.env.NODE_ENV = 'production';
+
 import { ApolloServer, gql } from 'apollo-server-lambda-edge';
 
 const typeDefs = gql`
@@ -47,9 +49,9 @@ const server = new ApolloServer({
 
 console.log('GraphQL Server:', { server });
 
-exports.handler = server.createHandler({
-  cors: {
-    origin: '*',
-    credentials: true,
-  },
-});
+// exports.handler = server.createHandler({
+//   cors: {
+//     origin: '*',
+//     credentials: true,
+//   },
+// });
