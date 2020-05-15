@@ -7,6 +7,8 @@
 - Globally replicated DynamoDB Tables
 - GraphQL handlers routing to the closest DynamoDB table as persistence layer
 - Pay-what-you-use model, no upfront or fixed charges, everything billed per-request
+- Infra managed using AWS-CDK and Typescript
+- Node functions packaged and minified automatically using Parcel
 
 ## Useful commands
 
