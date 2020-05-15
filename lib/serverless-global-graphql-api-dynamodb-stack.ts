@@ -3,7 +3,7 @@ import { AttributeType, Table } from '@aws-cdk/aws-dynamodb';
 import { Bucket } from '@aws-cdk/aws-s3';
 import { NodejsFunction } from '@aws-cdk/aws-lambda-nodejs';
 import { CompositePrincipal, Role, ServicePrincipal } from '@aws-cdk/aws-iam';
-import { LambdaRestApi } from '@aws-cdk/aws-apigateway';
+
 import {
   CloudFrontWebDistribution,
   LambdaEdgeEventType,

@@ -1,21 +1,4 @@
-// exports.handler = (event: any, context: any, callback: any) => {
-//   console.log('REQUEST', JSON.stringify(event), context);
-//   const status = '200';
-//   const headers = {
-//     'content-type': [
-//       {
-//         key: 'Content-Type',
-//         value: 'application/json',
-//       },
-//     ],
-//   };
-//   const body = JSON.stringify(event, null, 2);
-//   return callback(null, { status, headers, body });
-// };
-
-process.env.NODE_ENV = 'production';
-
-import { ApolloServer, gql } from 'apollo-server-lambda-edge';
+import { ApolloServer, gql } from 'apollo-server';
 
 const typeDefs = gql`
   type Query {
@@ -36,7 +19,7 @@ const server = new ApolloServer({
     endpoint: '/dev/graphql',
   },
   context: ({ event, context }: any) => {
-    console.log(JSON.stringify(event, null, 2));
+    console.log('event', JSON.stringify(event, null, 2));
 
     return {
       headers: event.headers,
@@ -49,9 +32,19 @@ const server = new ApolloServer({
 
 console.log('GraphQL Server:', { server });
 
-// exports.handler = server.createHandler({
-//   cors: {
-//     origin: '*',
-//     credentials: true,
-//   },
-// });
+exports.handler = (event: any, context: any, callback: any) => {
+  console.log('req: ', JSON.stringify(event), context);
+
+  // server.executeOperation()
+  const status = '200';
+  const headers = {
+    'content-type': [
+      {
+        key: 'Content-Type',
+        value: 'application/json',
+      },
+    ],
+  };
+  const body = JSON.stringify(event, null, 2);
+  return callback(null, { status, headers, body });
+};
