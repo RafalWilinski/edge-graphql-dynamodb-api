@@ -31,6 +31,7 @@ export class ServerlessGlobalGraphqlApiDynamodbStack extends cdk.Stack {
       entry: './src/graphql-server/function.ts',
       handler: 'handler',
       memorySize: 128, // Max
+      minify: true, // To fit below 1MB code limit
       timeout: Duration.millis(5000), // Max
       role: new Role(this, 'AllowLambdaServiceToAssumeRole', {
         assumedBy: new CompositePrincipal(

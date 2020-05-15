@@ -1,6 +1,5 @@
 // exports.handler = (event: any, context: any, callback: any) => {
 //   console.log('REQUEST', JSON.stringify(event), context);
-
 //   const status = '200';
 //   const headers = {
 //     'content-type': [
@@ -10,7 +9,6 @@
 //       },
 //     ],
 //   };
-
 //   const body = JSON.stringify(event, null, 2);
 //   return callback(null, { status, headers, body });
 // };
@@ -36,7 +34,7 @@ const server = new ApolloServer({
     endpoint: '/dev/graphql',
   },
   context: ({ event, context }: any) => {
-    console.log(event);
+    console.log(JSON.stringify(event, null, 2));
 
     return {
       headers: event.headers,
