@@ -30,7 +30,9 @@
     "@aws-cdk/aws-lambda-nodejs": "^1.38.0",
     "@aws-cdk/aws-s3": "^1.38.0",
     "@aws-cdk/core": "1.38.0",
+    "@types/aws-lambda": "^8.10.51",
     "apollo-server-lambda-edge": "^1.0.3",
+    "graphql": "^15.0.0",
     "sha256-file": "^1.0.0",
     "source-map-support": "^0.5.16"
   }
