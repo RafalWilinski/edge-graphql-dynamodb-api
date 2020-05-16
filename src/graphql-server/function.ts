@@ -23,16 +23,19 @@ export const schema = new GraphQLSchema({
       hello: {
         type: GraphQLString,
         resolve() {
-          ddb
+          return ddb
             .scan({
               TableName:
                 'ServerlessGlobalGraphqlApiDynamodbStack-globdynamodb00ADB51B-M0578CQMZCP9',
             })
             .promise()
             .then((data: any) => {
+              console.log({ data });
+
               return JSON.stringify(data, null, 2);
             })
             .catch((error: any) => {
+              console.log({ error });
               return JSON.stringify(error, null, 2);
             });
         },

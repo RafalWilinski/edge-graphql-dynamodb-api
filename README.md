@@ -1,5 +1,7 @@
 ![Solution Diagram](./assets/overview.png)
 
+- [Demo Playground](https://d1pc7a0vu5q5b3.cloudfront.net/playground)
+
 # Serverless GraphQL @ Edge + Global DynamoDB Tables
 
 - Globally and highly available
