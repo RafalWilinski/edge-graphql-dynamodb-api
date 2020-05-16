@@ -4,6 +4,10 @@
 
 # Serverless GraphQL @ Edge + Global DynamoDB Tables
 
+Why? Mostly for fun. I don't see too many practical use cases for such setup. Lambda@Edges aren't suitable for a lot of cases due to limited memory and CPU, so they are *slow*. If you need a globally available website with dynamic content, you should consider going with JAMStack served via CloudFront, Vercel or Cloudflare.
+
+## Features
+
 - Globally and highly available
 - GraphQL Server at each of Edge locations using Lambda@Edge + CloudFront
 - Globally replicated DynamoDB Tables
