@@ -2,14 +2,7 @@ import * as cdk from '@aws-cdk/core';
 import { AttributeType, Table } from '@aws-cdk/aws-dynamodb';
 import { Bucket } from '@aws-cdk/aws-s3';
 import { NodejsFunction } from '@aws-cdk/aws-lambda-nodejs';
-import {
-  CompositePrincipal,
-  Role,
-  ServicePrincipal,
-  PolicyDocument,
-  PolicyStatement,
-  Effect,
-} from '@aws-cdk/aws-iam';
+import { CompositePrincipal, Role, ServicePrincipal } from '@aws-cdk/aws-iam';
 import {
   CloudFrontWebDistribution,
   LambdaEdgeEventType,
@@ -35,15 +28,6 @@ export class ServerlessGlobalGraphqlApiDynamodbStack extends cdk.Stack {
       websiteIndexDocument: 'playground.html',
     });
 
-    const statement = new PolicyStatement({
-      effect: Effect.ALLOW,
-      resources: [
-        table.tableArn,
-        ...replicationRegions.map((r: string) => table.tableArn.replace(this.region, r)),
-      ],
-      actions: ['dynamodb:Scan', 'dynamodb:Query', 'dynamodb:GetItem', 'dynamodb:PutItem'],
-    });
-
     const graphql = new NodejsFunction(this, 'yourlambda', {
       entry: './src/graphql-server/dist/function.js',
       handler: 'handler',
@@ -62,13 +46,10 @@ export class ServerlessGlobalGraphqlApiDynamodbStack extends cdk.Stack {
             'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
           ),
         ],
-        inlinePolicies: {
-          dynamodbPolicy: new PolicyDocument({
-            statements: [statement],
-          }),
-        },
       }),
     });
+
+    table.grantFullAccess(graphql);
 
     const graphqlVersion = graphql.addVersion(
       ':sha256:' + sha256('./src/graphql-server/function.ts')

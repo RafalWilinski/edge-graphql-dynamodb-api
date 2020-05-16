@@ -30,7 +30,7 @@ export const schema = new GraphQLSchema({
             })
             .promise()
             .then((data: any) => {
-              console.log({ data });
+              console.log('db', { data });
 
               return JSON.stringify(data, null, 2);
             })
