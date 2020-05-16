@@ -2,7 +2,14 @@ import * as cdk from '@aws-cdk/core';
 import { AttributeType, Table } from '@aws-cdk/aws-dynamodb';
 import { Bucket } from '@aws-cdk/aws-s3';
 import { NodejsFunction } from '@aws-cdk/aws-lambda-nodejs';
-import { CompositePrincipal, Role, ServicePrincipal } from '@aws-cdk/aws-iam';
+import {
+  CompositePrincipal,
+  Role,
+  ServicePrincipal,
+  PolicyDocument,
+  PolicyStatement,
+  Effect,
+} from '@aws-cdk/aws-iam';
 import {
   CloudFrontWebDistribution,
   LambdaEdgeEventType,
@@ -18,7 +25,7 @@ export class ServerlessGlobalGraphqlApiDynamodbStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    new Table(this, 'globdynamodb', {
+    const table = new Table(this, 'globdynamodb', {
       partitionKey: { name: 'hashKey', type: AttributeType.STRING },
       replicationRegions,
     });
@@ -26,6 +33,15 @@ export class ServerlessGlobalGraphqlApiDynamodbStack extends cdk.Stack {
     const bucket = new Bucket(this, 'bucket', {
       publicReadAccess: true,
       websiteIndexDocument: 'playground.html',
+    });
+
+    const statement = new PolicyStatement({
+      effect: Effect.ALLOW,
+      resources: [
+        table.tableArn,
+        ...replicationRegions.map((r: string) => table.tableArn.replace(this.region, r)),
+      ],
+      actions: ['dynamodb:Scan', 'dynamodb:Query', 'dynamodb:GetItem', 'dynamodb:PutItem'],
     });
 
     const graphql = new NodejsFunction(this, 'yourlambda', {
@@ -46,6 +62,11 @@ export class ServerlessGlobalGraphqlApiDynamodbStack extends cdk.Stack {
             'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
           ),
         ],
+        inlinePolicies: {
+          dynamodbPolicy: new PolicyDocument({
+            statements: [statement],
+          }),
+        },
       }),
     });
 
