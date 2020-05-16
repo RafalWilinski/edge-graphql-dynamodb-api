@@ -2,12 +2,13 @@
   "name": "graphql-server",
   "version": "1.0.0",
   "description": "",
-  "main": "function.js",
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "apollo-server": "^2.13.1",
-    "graphql": "14.2.1"
-  }
+    "graphql": "^15.0.0"
+  },
+  "scripts": {
+    "package": "NODE_ENV=production parcel build function.ts"
+  },
+  "browserslist": [
+    "last 1 Chrome versions"
+  ]
 }
