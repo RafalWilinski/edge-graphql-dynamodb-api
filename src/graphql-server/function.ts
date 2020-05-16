@@ -20,7 +20,7 @@ const ddb = new DynamoDB.DocumentClient({
 const item = new GraphQLObjectType({
   name: 'Item',
   fields: {
-    id: {
+    hashKey: {
       type: GraphQLString,
     },
     description: {
