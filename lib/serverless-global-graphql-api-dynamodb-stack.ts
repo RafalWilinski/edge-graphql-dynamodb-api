@@ -8,6 +8,7 @@ import {
   LambdaEdgeEventType,
   CloudFrontAllowedMethods,
   OriginAccessIdentity,
+  CfnDistribution,
 } from '@aws-cdk/aws-cloudfront';
 import { ManagedPolicy } from '@aws-cdk/aws-iam';
 import sha256 from 'sha256-file';
@@ -79,10 +80,10 @@ export class ServerlessGlobalGraphqlApiDynamodbStack extends cdk.Stack {
     });
 
     // Include body = true
-    // (distribution.node.defaultChild as CfnDistribution).addOverride(
-    //   'Properties.DistributionConfig.CacheBehaviors.0.LambdaFunctionAssociations.0.IncludeBody',
-    //   true
-    // );
+    (distribution.node.defaultChild as CfnDistribution).addOverride(
+      'Properties.DistributionConfig.DefaultCacheBehavior.LambdaFunctionAssociations.0.IncludeBody',
+      true
+    );
 
     new CfnOutput(this, 'apiUrl', {
       value: distribution.domainName,
