@@ -1,6 +1,7 @@
 ![Solution Diagram](./assets/overview.png)
 
 - [Demo Playground](https://d1pc7a0vu5q5b3.cloudfront.net/playground)
+- [Blogpost with full explanation](https://servicefull.cloud/blog/graphql-at-edge/)
 
 # Serverless GraphQL @ Edge + Global DynamoDB Tables
 
